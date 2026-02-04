@@ -1,0 +1,578 @@
+/* ===================================
+   DESIGN SYSTEM & ROOT VARIABLES
+   =================================== */
+:root {
+    /* Pastel Color Palette */
+    --color-pink-primary: hsl(340, 82%, 85%);
+    --color-pink-soft: hsl(340, 100%, 95%);
+    --color-lavender: hsl(270, 50%, 85%);
+    --color-lavender-soft: hsl(270, 50%, 95%);
+    --color-cream: hsl(40, 50%, 96%);
+    --color-peach: hsl(20, 100%, 90%);
+    --color-white: hsl(0, 0%, 100%);
+    
+    /* Gradient Backgrounds */
+    --gradient-main: linear-gradient(135deg, var(--color-pink-soft) 0%, var(--color-lavender-soft) 50%, var(--color-cream) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(340, 100%, 92%) 0%, hsl(20, 100%, 88%) 50%, hsl(40, 80%, 90%) 100%);
+    --gradient-romantic: radial-gradient(circle at 50% 50%, hsl(340, 100%, 95%), hsl(270, 60%, 92%));
+    
+    /* Typography */
+    --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-handwritten: 'Pacifico', cursive;
+    
+    /* Spacing & Sizing */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --shadow-soft: 0 8px 30px rgba(255, 182, 193, 0.25);
+    --shadow-hover: 0 12px 40px rgba(255, 182, 193, 0.35);
+    
+    /* Animation Durations */
+    --duration-fast: 200ms;
+    --duration-normal: 400ms;
+    --duration-slow: 600ms;
+}
+
+/* ===================================
+   GLOBAL RESET & BASE STYLES
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--gradient-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    color: hsl(340, 60%, 40%);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===================================
+   FLOATING BACKGROUND HEARTS
+   =================================== */
+.bg-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.3;
+    animation: floatHeart 8s infinite ease-in-out;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   SCREEN SYSTEM
+   =================================== */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--duration-slow) ease, visibility var(--duration-slow) ease;
+    z-index: 1;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===================================
+   TYPOGRAPHY
+   =================================== */
+.main-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: hsl(340, 70%, 50%);
+    margin-bottom: 2rem;
+    line-height: 1.3;
+}
+
+.screen-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 600;
+    color: hsl(340, 70%, 50%);
+    margin-bottom: 1.5rem;
+}
+
+.question-title {
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 30px rgba(255, 182, 193, 0.8);
+    }
+}
+
+/* ===================================
+   BUTTONS
+   =================================== */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-family: var(--font-primary);
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-soft);
+    min-width: 140px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, hsl(340, 82%, 75%), hsl(340, 82%, 85%));
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.btn-secondary {
+    background: var(--color-lavender);
+    color: hsl(270, 60%, 40%);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-no {
+    background: var(--color-lavender-soft);
+    color: hsl(270, 50%, 50%);
+}
+
+.btn-no:hover {
+    animation: wiggle 0.5s ease;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(0.95); }
+    75% { transform: rotate(5deg) scale(0.95); }
+}
+
+.btn-yes {
+    animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    10% { transform: scale(1.1); }
+    20% { transform: scale(1); }
+}
+
+/* ===================================
+   MASCOT
+   =================================== */
+.mascot-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.mascot {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--color-pink-primary), var(--color-lavender));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    animation: bobFloat 3s infinite ease-in-out;
+}
+
+@keyframes bobFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.mascot.celebrating {
+    animation: celebrate 0.6s infinite ease-in-out;
+}
+
+@keyframes celebrate {
+    0%, 100% { transform: rotate(-5deg) scale(1); }
+    50% { transform: rotate(5deg) scale(1.1); }
+}
+
+.mascot-face {
+    position: relative;
+    width: 80%;
+    height: 80%;
+}
+
+.eyes {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.eye {
+    width: 12px;
+    height: 12px;
+    background: var(--color-white);
+    border-radius: 50%;
+    position: relative;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: hsl(340, 70%, 40%);
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+}
+
+.mouth {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mouth.happy {
+    width: 30px;
+    height: 15px;
+    border: 3px solid var(--color-white);
+    border-top: none;
+    border-radius: 0 0 30px 30px;
+}
+
+.speech-bubble {
+    background: var(--color-white);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: hsl(340, 60%, 50%);
+    position: relative;
+    animation: fadeInUp 0.5s ease;
+}
+
+.speech-bubble::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--color-white);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   INTERACTION PHASE
+   =================================== */
+.progress-container {
+    margin: 2rem auto;
+}
+
+.progress-bar {
+    width: 100%;
+    max-width: 300px;
+    height: 20px;
+    background: var(--color-white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-pink-primary), var(--color-lavender));
+    width: 0%;
+    transition: width var(--duration-normal) ease;
+    border-radius: 20px;
+}
+
+.progress-text {
+    font-size: 0.95rem;
+    color: hsl(340, 60%, 50%);
+    font-weight: 600;
+}
+
+.interactive-area {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.tap-heart {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform var(--duration-fast) ease;
+    font-size: 2.5rem;
+    user-select: none;
+}
+
+.tap-heart:hover {
+    transform: scale(1.2);
+}
+
+.tap-heart.collected {
+    animation: heartCollect 0.6s ease forwards;
+}
+
+@keyframes heartCollect {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5) rotate(15deg);
+    }
+    100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   LOVE NOTE
+   =================================== */
+#screen-note {
+    background: var(--gradient-warm);
+}
+
+.love-note {
+    background: var(--color-white);
+    padding: 3rem 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.love-note::before,
+.love-note::after {
+    content: '💕';
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.4;
+}
+
+.love-note::before {
+    top: 1rem;
+    left: 1rem;
+}
+
+.love-note::after {
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.note-content {
+    font-family: var(--font-handwritten);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: hsl(340, 70%, 45%);
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* ===================================
+   FINALE SCREEN
+   =================================== */
+#screen-finale {
+    background: var(--gradient-romantic);
+}
+
+.finale-title {
+    margin-bottom: 1rem;
+}
+
+.finale-subtitle {
+    font-size: 1.25rem;
+    color: hsl(340, 60%, 55%);
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .btn {
+        font-size: 1rem;
+        padding: 0.875rem 2rem;
+        min-width: 120px;
+    }
+    
+    .mascot {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .interactive-area {
+        height: 250px;
+    }
+    
+    .love-note {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ===================================
+   UTILITY ANIMATIONS
+   =================================== */
+@keyframes heartBurst {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2) translateY(-50px);
+        opacity: 0;
+    }
+}
+
+.heart-burst {
+    position: fixed;
+    font-size: 3rem;
+    animation: heartBurst 1s ease forwards;
+    pointer-events: none;
+    z-index: 9999;
+}

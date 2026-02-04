@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Background Hearts -->
+    <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+
+    <!-- Screen 1: Landing - Anticipation -->
+    <section class="screen active" id="screen-landing">
+        <div class="container">
+            <div class="mascot-container">
+                <div class="mascot curious" id="mascot">
+                    <div class="mascot-face">
+                        <div class="eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                        <div class="mouth happy"></div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="main-title">Hey… are you ready? 💭</h1>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="goToScreen('screen-interaction')">Yes 💗</button>
+                <button class="btn btn-no" id="landingNoBtn">No 🙈</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 2: Interaction Phase - Playful Build-Up -->
+    <section class="screen" id="screen-interaction">
+        <div class="container">
+            <div class="mascot-container">
+                <div class="mascot curious" id="mascot2">
+                    <div class="mascot-face">
+                        <div class="eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                        <div class="mouth happy"></div>
+                    </div>
+                </div>
+                <div class="speech-bubble" id="mascotSpeech">Tap the hearts! 💕</div>
+            </div>
+            <h2 class="screen-title">Collect the love! ✨</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text" id="progressText">0 / 10 hearts</p>
+            </div>
+            <div class="interactive-area" id="interactiveArea">
+                <!-- Hearts will spawn here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 3: The Question -->
+    <section class="screen" id="screen-question">
+        <div class="container">
+            <div class="mascot-container">
+                <div class="mascot excited" id="mascot3">
+                    <div class="mascot-face">
+                        <div class="eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                        <div class="mouth happy"></div>
+                    </div>
+                </div>
+                <div class="speech-bubble" id="noResponseBubble" style="display: none;"></div>
+            </div>
+            <h1 class="main-title question-title">Will you be my Valentine? 💖✨</h1>
+            <div class="button-group">
+                <button class="btn btn-primary btn-yes" id="yesBtn">Yes 💞</button>
+                <button class="btn btn-no" id="noBtn">No 🙃</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen 4: Love Note -->
+    <section class="screen" id="screen-note">
+        <div class="container">
+            <div class="love-note">
+                <div class="note-content" id="noteContent">
+                    <!-- Typed message will appear here -->
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="goToScreen('screen-finale')" style="margin-top: 2rem;">Continue 💝</button>
+        </div>
+    </section>
+
+    <!-- Screen 5: Final Delight -->
+    <section class="screen" id="screen-finale">
+        <div class="container">
+            <div class="confetti-container" id="confettiContainer"></div>
+            <div class="mascot-container">
+                <div class="mascot excited celebrating" id="mascot4">
+                    <div class="mascot-face">
+                        <div class="eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                        <div class="mouth happy"></div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="main-title finale-title">Happy Valentine's Day! 💖</h1>
+            <p class="finale-subtitle">You made my day special ✨</p>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="resetApp()">Replay 🔄</button>
+                <button class="btn btn-secondary" id="musicBtn" onclick="toggleMusic()">Music 🎵</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
