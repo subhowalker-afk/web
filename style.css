@@ -419,6 +419,25 @@ body {
     margin-bottom: 2rem;
 }
 
+/* New styling for actual mascot images */
+.mascot-img {
+    width: 150px;
+    height: auto;
+    animation: bobFloat 3s infinite ease-in-out;
+    transition: all var(--duration-normal) var(--ease-gentle);
+    filter: drop-shadow(0 8px 20px rgba(255, 182, 193, 0.4));
+}
+
+.mascot-img:hover {
+    transform: translateY(-10px) scale(1.1);
+    filter: drop-shadow(0 12px 30px rgba(255, 182, 193, 0.6));
+}
+
+.mascot-img.celebrating {
+    animation: celebrate 0.6s infinite ease-in-out;
+}
+
+/* Keep old CSS mascot for fallback */
 .mascot {
     width: 120px;
     height: 120px;
@@ -561,8 +580,140 @@ body {
 }
 
 /* ===================================
-   INTERACTION PHASE
+   HEART FILL PROGRESS (Emotional!)
    =================================== */
+.heart-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    margin: var(--space-6) auto;
+}
+
+.heart-fill-container {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.35s var(--ease-smooth);
+}
+
+/* The sprite shows 6 frames: 3 columns x 2 rows
+   Frame order (reading order): 5(full), 4, 3, 2, 1, 0(empty)
+   We reverse: 0=bottom-right, 5=top-left */
+.heart-fill-sprite {
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/hearts/heart-sprite.png');
+    background-size: 300% 200%;
+    /* 3 cols x 2 rows */
+    background-position: 100% 100%;
+    /* Start at frame 0 (empty, bottom-right) */
+    transition:
+        background-position 0.4s var(--ease-gentle),
+        transform 0.35s var(--ease-smooth),
+        filter 0.35s var(--ease-gentle);
+    filter: drop-shadow(0 8px 20px rgba(255, 105, 180, 0.3));
+}
+
+/* Heart fill levels via background-position */
+.heart-fill-sprite[data-level="0"] {
+    background-position: 100% 100%;
+}
+
+/* empty */
+.heart-fill-sprite[data-level="1"] {
+    background-position: 50% 100%;
+}
+
+/* ~20% */
+.heart-fill-sprite[data-level="2"] {
+    background-position: 0% 100%;
+}
+
+/* ~40% */
+.heart-fill-sprite[data-level="3"] {
+    background-position: 100% 0%;
+}
+
+/* ~60% */
+.heart-fill-sprite[data-level="4"] {
+    background-position: 50% 0%;
+}
+
+/* ~80% */
+.heart-fill-sprite[data-level="5"] {
+    background-position: 0% 0%;
+}
+
+/* full */
+
+/* Pulse animation on level change */
+.heart-fill-sprite.pulse {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.7));
+}
+
+/* Wobble animation for extra delight */
+@keyframes wobble {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.05) rotate(-2deg);
+    }
+
+    50% {
+        transform: scale(1.08) rotate(0deg);
+    }
+
+    75% {
+        transform: scale(1.05) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.heart-fill-sprite.wobble {
+    animation: wobble 0.6s ease;
+}
+
+/* Full heart glow celebration */
+.heart-fill-sprite.full {
+    filter: drop-shadow(0 0 30px rgba(255, 105, 180, 0.9));
+    animation: heartGlow 1s infinite ease-in-out;
+}
+
+@keyframes heartGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 25px rgba(255, 105, 180, 0.7));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 40px rgba(255, 105, 180, 1));
+    }
+}
+
+.heart-text {
+    font-size: var(--font-size-base);
+    color: #ff6fae;
+    opacity: 0.9;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.heart-text.excited {
+    color: #ff4d94;
+    font-weight: 600;
+    transform: scale(1.05);
+}
+
+/* Keep old progress styles for fallback */
 .progress-container {
     margin: 2rem auto;
 }

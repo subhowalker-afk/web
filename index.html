@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine? 💖</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Pacifico&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Floating Background Hearts -->
     <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
@@ -17,15 +20,7 @@
     <section class="screen active" id="screen-landing">
         <div class="container">
             <div class="mascot-container">
-                <div class="mascot curious" id="mascot">
-                    <div class="mascot-face">
-                        <div class="eyes">
-                            <div class="eye"></div>
-                            <div class="eye"></div>
-                        </div>
-                        <div class="mouth happy"></div>
-                    </div>
-                </div>
+                <img src="assets/heart-curious.png" alt="Cute heart mascot" class="mascot-img" id="mascot">
             </div>
             <h1 class="main-title">Hey… are you ready? 💭</h1>
             <div class="button-group">
@@ -39,24 +34,19 @@
     <section class="screen" id="screen-interaction">
         <div class="container">
             <div class="mascot-container">
-                <div class="mascot curious" id="mascot2">
-                    <div class="mascot-face">
-                        <div class="eyes">
-                            <div class="eye"></div>
-                            <div class="eye"></div>
-                        </div>
-                        <div class="mouth happy"></div>
-                    </div>
-                </div>
-                <div class="speech-bubble" id="mascotSpeech">Tap the hearts! 💕</div>
+                <img src="assets/heart-happy.png" alt="Happy heart mascot" class="mascot-img" id="mascot2">
+                <div class="speech-bubble" id="mascotSpeech">Fill my heart! 💕</div>
             </div>
-            <h2 class="screen-title">Collect the love! ✨</h2>
-            <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
+            <h2 class="screen-title">Warm up the heart ✨</h2>
+
+            <!-- Heart Fill Progress (replaces boring progress bar) -->
+            <div class="heart-progress">
+                <div class="heart-fill-container" id="heartFillContainer">
+                    <div class="heart-fill-sprite" id="heartFill"></div>
                 </div>
-                <p class="progress-text" id="progressText">0 / 10 hearts</p>
+                <p class="heart-text" id="heartText">Warming up the heart 💗</p>
             </div>
+
             <div class="interactive-area" id="interactiveArea">
                 <!-- Hearts will spawn here -->
             </div>
@@ -67,15 +57,7 @@
     <section class="screen" id="screen-question">
         <div class="container">
             <div class="mascot-container">
-                <div class="mascot excited" id="mascot3">
-                    <div class="mascot-face">
-                        <div class="eyes">
-                            <div class="eye"></div>
-                            <div class="eye"></div>
-                        </div>
-                        <div class="mouth happy"></div>
-                    </div>
-                </div>
+                <img src="assets/heart-ribbon.png" alt="Excited heart mascot" class="mascot-img" id="mascot3">
                 <div class="speech-bubble" id="noResponseBubble" style="display: none;"></div>
             </div>
             <h1 class="main-title question-title">Will you be my Valentine? 💖✨</h1>
@@ -94,7 +76,8 @@
                     <!-- Typed message will appear here -->
                 </div>
             </div>
-            <button class="btn btn-primary" onclick="goToScreen('screen-finale')" style="margin-top: 2rem;">Continue 💝</button>
+            <button class="btn btn-primary" onclick="goToScreen('screen-finale')" style="margin-top: 2rem;">Continue
+                💝</button>
         </div>
     </section>
 
@@ -103,15 +86,8 @@
         <div class="container">
             <div class="confetti-container" id="confettiContainer"></div>
             <div class="mascot-container">
-                <div class="mascot excited celebrating" id="mascot4">
-                    <div class="mascot-face">
-                        <div class="eyes">
-                            <div class="eye"></div>
-                            <div class="eye"></div>
-                        </div>
-                        <div class="mouth happy"></div>
-                    </div>
-                </div>
+                <img src="assets/heart-excited.png" alt="Celebrating heart mascot" class="mascot-img celebrating"
+                    id="mascot4">
             </div>
             <h1 class="main-title finale-title">Happy Valentine's Day! 💖</h1>
             <p class="finale-subtitle">You made my day special ✨</p>
@@ -124,4 +100,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

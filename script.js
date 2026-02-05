@@ -4,7 +4,8 @@
 const AppState = {
     currentScreen: 'screen-landing',
     heartsCollected: 0,
-    totalHeartsNeeded: 10,
+    totalHeartsNeeded: 10,  // 10 taps = full heart (maps to 6 sprite levels)
+    heartLevel: 0,          // 0-5 sprite levels
     noClickCount: 0,
     hasMusic: false,
     userName: '',
@@ -15,6 +16,16 @@ const noResponses = [
     "You have no choice now, cutie 😌💘",
     "Please accept 🥺👉👈",
     "Accept already 😤💖"
+];
+
+// Heart fill messages (emotional progression)
+const heartMessages = [
+    "Warming up the heart 💗",
+    "Feeling the love 💕",
+    "Getting warmer 🔥",
+    "Almost there 💖",
+    "So close! ✨",
+    "Heart is full! 💝"
 ];
 
 // ===================================
@@ -128,7 +139,16 @@ function setupEventListeners() {
 // ===================================
 function startInteractionPhase() {
     AppState.heartsCollected = 0;
-    updateProgress();
+    AppState.heartLevel = 0;
+
+    // Initialize heart fill sprite
+    const heartFill = document.getElementById('heartFill');
+    if (heartFill) {
+        heartFill.setAttribute('data-level', '0');
+        heartFill.classList.remove('pulse', 'wobble', 'full');
+    }
+
+    updateHeartProgress();
     spawnInteractiveHearts();
 }
 
@@ -164,7 +184,7 @@ function collectHeart(heartElement, event) {
     // Create burst effect at click position
     createHeartBurst(event.clientX, event.clientY);
 
-    updateProgress();
+    updateHeartProgress();
 
     // Remove heart after animation
     setTimeout(() => {
@@ -181,13 +201,42 @@ function collectHeart(heartElement, event) {
     }, 600);
 }
 
-function updateProgress() {
-    const progressFill = document.getElementById('progressFill');
-    const progressText = document.getElementById('progressText');
+function updateHeartProgress() {
+    const heartFill = document.getElementById('heartFill');
+    const heartText = document.getElementById('heartText');
 
-    const percentage = (AppState.heartsCollected / AppState.totalHeartsNeeded) * 100;
-    progressFill.style.width = percentage + '%';
-    progressText.textContent = `${AppState.heartsCollected} / ${AppState.totalHeartsNeeded} hearts`;
+    if (!heartFill) return;
+
+    // Calculate heart level (0-5) from hearts collected (0-10)
+    // Level changes at: 0, 2, 4, 6, 8, 10 hearts
+    const newLevel = Math.min(5, Math.floor(AppState.heartsCollected / 2));
+
+    // Check if level increased
+    if (newLevel > AppState.heartLevel) {
+        AppState.heartLevel = newLevel;
+        heartFill.setAttribute('data-level', newLevel.toString());
+
+        // Trigger pulse animation
+        heartFill.classList.add('pulse');
+        setTimeout(() => heartFill.classList.remove('pulse'), 350);
+
+        // Trigger wobble for extra delight
+        heartFill.classList.add('wobble');
+        setTimeout(() => heartFill.classList.remove('wobble'), 600);
+
+        // Update message
+        if (heartText) {
+            heartText.textContent = heartMessages[newLevel];
+            if (newLevel >= 4) {
+                heartText.classList.add('excited');
+            }
+        }
+
+        // Full heart celebration
+        if (newLevel === 5) {
+            heartFill.classList.add('full');
+        }
+    }
 }
 
 function completeInteractionPhase() {
