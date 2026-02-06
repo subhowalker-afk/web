@@ -1,104 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine? 💖</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Pacifico&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="A special Valentine's message just for you 💕">
+  <title>Something Special Awaits... 💖</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    /* Page-specific styles */
+    .hero-emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: var(--space-lg);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .hero-title {
+      font-size: var(--font-size-3xl);
+      font-family: var(--font-romantic);
+      margin-bottom: var(--space-md);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-lg);
+      opacity: 0.9;
+      margin-bottom: var(--space-2xl);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .hero-btn {
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(255, 133, 162, 0.5));
+      }
+      50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 30px rgba(255, 133, 162, 0.8));
+      }
+    }
+
+    /* Decorative hearts cluster */
+    .hearts-cluster {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .hearts-cluster--top-left {
+      top: 10%;
+      left: 5%;
+      transform: rotate(-15deg);
+    }
+
+    .hearts-cluster--top-right {
+      top: 15%;
+      right: 8%;
+      transform: rotate(20deg);
+    }
+
+    .hearts-cluster--bottom-left {
+      bottom: 15%;
+      left: 8%;
+      transform: rotate(10deg);
+    }
+
+    .hearts-cluster--bottom-right {
+      bottom: 10%;
+      right: 5%;
+      transform: rotate(-10deg);
+    }
+  </style>
 </head>
-
 <body>
-    <!-- Floating Background Hearts -->
-    <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+  <!-- Floating Hearts Background -->
+  <div class="hearts-bg" aria-hidden="true"></div>
 
-    <!-- Screen 1: Landing - Anticipation -->
-    <section class="screen active" id="screen-landing">
-        <div class="container">
-            <div class="mascot-container">
-                <img src="assets/heart-curious.png" alt="Cute heart mascot" class="mascot-img" id="mascot">
-            </div>
-            <h1 class="main-title">Hey… are you ready? 💭</h1>
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="goToScreen('screen-interaction')">Yes 💗</button>
-                <button class="btn btn-no" id="landingNoBtn">No 🙈</button>
-            </div>
-        </div>
-    </section>
+  <!-- Decorative clusters -->
+  <span class="hearts-cluster hearts-cluster--top-left" aria-hidden="true">💕</span>
+  <span class="hearts-cluster hearts-cluster--top-right" aria-hidden="true">💖</span>
+  <span class="hearts-cluster hearts-cluster--bottom-left" aria-hidden="true">💗</span>
+  <span class="hearts-cluster hearts-cluster--bottom-right" aria-hidden="true">💞</span>
 
-    <!-- Screen 2: Interaction Phase - Playful Build-Up -->
-    <section class="screen" id="screen-interaction">
-        <div class="container">
-            <div class="mascot-container">
-                <img src="assets/heart-happy.png" alt="Happy heart mascot" class="mascot-img" id="mascot2">
-                <div class="speech-bubble" id="mascotSpeech">Fill my heart! 💕</div>
-            </div>
-            <h2 class="screen-title">Warm up the heart ✨</h2>
+  <!-- Main Content -->
+  <main class="page-container">
+    <div class="content-wrapper">
+      <span class="hero-emoji" aria-hidden="true">💝</span>
+      
+      <h1 class="hero-title text-glow">
+        Hey, You...
+      </h1>
+      
+      <p class="hero-subtitle">
+        I made something special for you 🌸
+      </p>
+      
+      <a href="ready.html" class="btn btn--primary shimmer hero-btn" id="continueBtn">
+        <span>Open It</span>
+        <span aria-hidden="true">✨</span>
+      </a>
+    </div>
+  </main>
 
-            <!-- Heart Fill Progress (replaces boring progress bar) -->
-            <div class="heart-progress">
-                <div class="heart-fill-container" id="heartFillContainer">
-                    <div class="heart-fill-sprite" id="heartFill"></div>
-                </div>
-                <p class="heart-text" id="heartText">Warming up the heart 💗</p>
-            </div>
-
-            <div class="interactive-area" id="interactiveArea">
-                <!-- Hearts will spawn here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Screen 3: The Question -->
-    <section class="screen" id="screen-question">
-        <div class="container">
-            <div class="mascot-container">
-                <img src="assets/heart-ribbon.png" alt="Excited heart mascot" class="mascot-img" id="mascot3">
-                <div class="speech-bubble" id="noResponseBubble" style="display: none;"></div>
-            </div>
-            <h1 class="main-title question-title">Will you be my Valentine? 💖✨</h1>
-            <div class="button-group">
-                <button class="btn btn-primary btn-yes" id="yesBtn">Yes 💞</button>
-                <button class="btn btn-no" id="noBtn">No 🙃</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Screen 4: Love Note -->
-    <section class="screen" id="screen-note">
-        <div class="container">
-            <div class="love-note">
-                <div class="note-content" id="noteContent">
-                    <!-- Typed message will appear here -->
-                </div>
-            </div>
-            <button class="btn btn-primary" onclick="goToScreen('screen-finale')" style="margin-top: 2rem;">Continue
-                💝</button>
-        </div>
-    </section>
-
-    <!-- Screen 5: Final Delight -->
-    <section class="screen" id="screen-finale">
-        <div class="container">
-            <div class="confetti-container" id="confettiContainer"></div>
-            <div class="mascot-container">
-                <img src="assets/heart-excited.png" alt="Celebrating heart mascot" class="mascot-img celebrating"
-                    id="mascot4">
-            </div>
-            <h1 class="main-title finale-title">Happy Valentine's Day! 💖</h1>
-            <p class="finale-subtitle">You made my day special ✨</p>
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="resetApp()">Replay 🔄</button>
-                <button class="btn btn-secondary" id="musicBtn" onclick="toggleMusic()">Music 🎵</button>
-            </div>
-        </div>
-    </section>
-
-    <script src="script.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Optional: Add click handler for smooth transition
+    document.getElementById('continueBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      valentineUtils.navigateTo('ready.html');
+    });
+  </script>
 </body>
-
 </html>

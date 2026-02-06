@@ -1,0 +1,466 @@
+/* =====================================================
+   Valentine Website — Shared Styles
+   Premium, romantic, glassmorphism design system
+   ===================================================== */
+
+/* ----- CSS Custom Properties (Design Tokens) ----- */
+:root {
+  /* Colors */
+  --color-pink-light: #ffd6e7;
+  --color-pink: #ff85a2;
+  --color-pink-deep: #e84a7f;
+  --color-violet: #a855f7;
+  --color-violet-deep: #7c3aed;
+  --color-white: #ffffff;
+  --color-white-soft: rgba(255, 255, 255, 0.95);
+  --color-overlay: rgba(255, 255, 255, 0.15);
+  --color-overlay-strong: rgba(255, 255, 255, 0.25);
+
+  /* Gradients */
+  --gradient-bg: linear-gradient(135deg, #ffd6e7 0%, #e8b5d6 25%, #d4a5e3 50%, #c49cdb 75%, #a855f7 100%);
+  --gradient-button: linear-gradient(135deg, #ff85a2 0%, #e84a7f 50%, #a855f7 100%);
+  --gradient-glow: radial-gradient(circle, rgba(255, 133, 162, 0.4) 0%, transparent 70%);
+
+  /* Typography */
+  --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-romantic: 'Dancing Script', cursive;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3.5rem;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 20px rgba(232, 74, 127, 0.15);
+  --shadow-glow: 0 0 30px rgba(255, 133, 162, 0.4);
+  --shadow-button: 0 8px 32px rgba(232, 74, 127, 0.3);
+
+  /* Animations */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 800ms;
+  --duration-slower: 1200ms;
+}
+
+/* ----- Reset & Base ----- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--gradient-bg);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  color: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----- Typography ----- */
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.romantic-text {
+  font-family: var(--font-romantic);
+  font-weight: 400;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 40px rgba(255, 133, 162, 0.3);
+}
+
+/* ----- Layout ----- */
+.page-container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.content-wrapper {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+
+/* ----- Glassmorphism Buttons ----- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--color-white);
+  background: var(--color-overlay);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration-normal) var(--ease-smooth);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+}
+
+.btn:hover,
+.btn:focus {
+  background: var(--color-overlay-strong);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn--primary {
+  background: var(--gradient-button);
+  border: none;
+  box-shadow: var(--shadow-button);
+}
+
+.btn--primary:hover {
+  box-shadow: 0 12px 40px rgba(232, 74, 127, 0.5);
+}
+
+.btn--small {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-base);
+}
+
+.btn--yes {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.btn--no {
+  background: var(--color-overlay);
+}
+
+/* ----- Floating Hearts Background ----- */
+.hearts-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.15;
+  filter: blur(2px);
+  animation: float-heart linear infinite;
+  user-select: none;
+}
+
+@keyframes float-heart {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(1);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.15;
+  }
+
+  90% {
+    opacity: 0.15;
+  }
+
+  100% {
+    transform: translateY(-100vh) rotate(360deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Different heart styles */
+.heart--blur {
+  filter: blur(4px);
+  opacity: 0.1;
+}
+
+.heart--glow {
+  filter: blur(1px);
+  opacity: 0.25;
+  text-shadow: 0 0 20px rgba(255, 133, 162, 0.8);
+}
+
+/* ----- Fade Animations ----- */
+.fade-in {
+  animation: fadeIn var(--duration-slow) var(--ease-smooth) forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--duration-slow) var(--ease-smooth) forwards;
+}
+
+.fade-in-scale {
+  animation: fadeInScale var(--duration-slower) var(--ease-smooth) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ----- Breathing / Pulse Animation ----- */
+.breathing {
+  animation: breathing 5s ease-in-out infinite;
+}
+
+@keyframes breathing {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+
+  50% {
+    transform: scale(1.015);
+    opacity: 1;
+  }
+}
+
+/* ----- Shimmer Effect ----- */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%);
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+
+  100% {
+    transform: translateX(100%) rotate(25deg);
+  }
+}
+
+/* ----- Confetti / Sparkle ----- */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--color-white);
+  border-radius: 50%;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ----- Modal / Popup ----- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  max-width: 320px;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform var(--duration-normal) var(--ease-bounce);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1);
+}
+
+/* ----- Stagger Animation Delays ----- */
+.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.delay-2 {
+  animation-delay: 0.2s;
+}
+
+.delay-3 {
+  animation-delay: 0.3s;
+}
+
+.delay-4 {
+  animation-delay: 0.4s;
+}
+
+.delay-5 {
+  animation-delay: 0.5s;
+}
+
+/* ----- Accessibility ----- */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ----- Focus States ----- */
+.btn:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 4px;
+}
+
+/* ----- Responsive ----- */
+@media (min-width: 768px) {
+  .content-wrapper {
+    max-width: 500px;
+  }
+
+  :root {
+    --font-size-3xl: 3rem;
+    --font-size-4xl: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-wrapper {
+    max-width: 600px;
+  }
+}

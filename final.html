@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="A love note just for you">
+    <title>For You, With Love 💕</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Final page - softer, calmer gradient */
+        body {
+            background: linear-gradient(135deg, #fce7f3 0%, #f5d0e6 25%, #e8c6e0 50%, #d8b4e2 75%, #c4b5fd 100%);
+        }
+
+        /* Love letter styling */
+        .love-letter {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            max-width: 420px;
+            position: relative;
+            opacity: 0;
+            animation: letter-appear 1.5s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes letter-appear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Decorative seal */
+        .letter-seal {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            filter: drop-shadow(0 4px 10px rgba(232, 74, 127, 0.3));
+            animation: seal-bounce 0.8s ease forwards;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes seal-bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+
+        .letter-title {
+            font-family: var(--font-romantic);
+            font-size: var(--font-size-2xl);
+            color: var(--color-pink-deep);
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1s;
+        }
+
+        .letter-content {
+            font-size: var(--font-size-base);
+            color: #5c4a6e;
+            line-height: 1.9;
+            margin-bottom: var(--space-xl);
+        }
+
+        .letter-content p {
+            margin-bottom: var(--space-md);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .letter-content p:nth-child(1) {
+            animation-delay: 1.2s;
+        }
+
+        .letter-content p:nth-child(2) {
+            animation-delay: 1.6s;
+        }
+
+        .letter-content p:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        .letter-content p:nth-child(4) {
+            animation-delay: 2.4s;
+        }
+
+        .letter-signature {
+            font-family: var(--font-romantic);
+            font-size: var(--font-size-xl);
+            color: var(--color-pink-deep);
+            text-align: right;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 2.8s;
+        }
+
+        /* Floating sparkles */
+        .sparkle-field {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .sparkle-star {
+            position: absolute;
+            font-size: 1rem;
+            opacity: 0;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+
+        /* Heart rain - gentle */
+        .heart-rain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .rain-heart {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.15;
+            animation: gentle-fall linear infinite;
+        }
+
+        @keyframes gentle-fall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Bottom hearts decoration */
+        .bottom-hearts {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-xl);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 3.2s;
+        }
+
+        .bottom-heart {
+            font-size: 1.5rem;
+            animation: gentle-float 2s ease-in-out infinite;
+        }
+
+        .bottom-heart:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .bottom-heart:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .bottom-heart:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .bottom-heart:nth-child(5) {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes gentle-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Final message */
+        .final-message {
+            margin-top: var(--space-2xl);
+            font-size: var(--font-size-sm);
+            color: rgba(92, 74, 110, 0.7);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 3.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Heart Rain Background -->
+    <div class="heart-rain" id="heartRain" aria-hidden="true"></div>
+
+    <!-- Sparkle Field -->
+    <div class="sparkle-field" id="sparkleField" aria-hidden="true"></div>
+
+    <!-- Floating Hearts Background -->
+    <div class="hearts-bg" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <div class="love-letter">
+            <span class="letter-seal" aria-hidden="true">💌</span>
+
+            <h1 class="letter-title">My Dearest Valentine...</h1>
+
+            <div class="letter-content" id="letterContent">
+                <p>You make every day brighter just by being you. Your smile, your laugh, the way you look at me — it
+                    all means the world. 🌸</p>
+
+                <p>I'm so grateful for every moment with you. You're my favorite hello and my hardest goodbye. 💕</p>
+
+                <p>Thank you for saying yes. Thank you for being you. Thank you for making me the luckiest person alive.
+                </p>
+
+                <p>Here's to us, to love, and to many more beautiful moments together. 🦋✨</p>
+            </div>
+
+            <p class="letter-signature">
+                Forever yours 💖
+            </p>
+
+            <div class="bottom-hearts" aria-hidden="true">
+                <span class="bottom-heart">💕</span>
+                <span class="bottom-heart">💗</span>
+                <span class="bottom-heart">💖</span>
+                <span class="bottom-heart">💓</span>
+                <span class="bottom-heart">💞</span>
+            </div>
+        </div>
+
+        <p class="final-message">
+            Made with love, just for you 💝
+        </p>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Create gentle heart rain
+        function createHeartRain() {
+            const container = document.getElementById('heartRain');
+            const hearts = ['💕', '💖', '💗', '💓', '🩷'];
+
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('span');
+                heart.className = 'rain-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDuration = `${10 + Math.random() * 15}s`;
+                heart.style.animationDelay = `${Math.random() * 10}s`;
+                container.appendChild(heart);
+            }
+        }
+
+        // Create sparkle stars
+        function createSparkles() {
+            const container = document.getElementById('sparkleField');
+            const sparkles = ['✨', '⭐', '💫', '🌟'];
+
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('span');
+                sparkle.className = 'sparkle-star';
+                sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.animationDelay = `${Math.random() * 3}s`;
+                container.appendChild(sparkle);
+            }
+        }
+
+        // Initialize effects
+        createHeartRain();
+        createSparkles();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="A fun heart-catching game">
+    <title>Catch My Love! 💖</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Game-specific styles */
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 60vh;
+            max-height: 500px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+            touch-action: none;
+            margin-bottom: var(--space-xl);
+        }
+
+        .game-title {
+            font-family: var(--font-romantic);
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-md);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .game-subtitle {
+            font-size: var(--font-size-sm);
+            opacity: 0.8;
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        /* Progress heart */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .progress-heart {
+            font-size: 2.5rem;
+            position: relative;
+            filter: grayscale(0.5) opacity(0.5);
+            transition: all 0.5s ease;
+        }
+
+        .progress-heart.filled {
+            filter: grayscale(0) opacity(1);
+            animation: heart-pop 0.5s ease;
+        }
+
+        @keyframes heart-pop {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+        }
+
+        .progress-text {
+            font-size: var(--font-size-lg);
+            font-weight: 500;
+        }
+
+        /* Falling hearts in game */
+        .falling-heart {
+            position: absolute;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            animation: fall linear forwards;
+            transition: transform 0.1s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 133, 162, 0.5));
+        }
+
+        .falling-heart:hover {
+            transform: scale(1.2);
+        }
+
+        .falling-heart.caught {
+            animation: catch-burst 0.4s ease forwards !important;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-50px);
+            }
+
+            to {
+                transform: translateY(calc(60vh + 50px));
+            }
+        }
+
+        @keyframes catch-burst {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Score pop animation */
+        .score-pop {
+            position: absolute;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-pink);
+            animation: pop-up 0.8s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes pop-up {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.5);
+            }
+        }
+
+        /* Win overlay */
+        .win-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+
+        .win-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .win-emoji {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+            animation: bounce-in 0.6s ease forwards;
+        }
+
+        .win-text {
+            font-family: var(--font-romantic);
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Tap hint */
+        .tap-hint {
+            position: absolute;
+            bottom: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--font-size-sm);
+            opacity: 0.6;
+            animation: fade-hint 2s ease-in-out infinite;
+        }
+
+        @keyframes fade-hint {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-bg" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <h1 class="game-title text-glow">Catch My Love!</h1>
+        <p class="game-subtitle">Tap the falling hearts 💕</p>
+
+        <!-- Progress -->
+        <div class="progress-container">
+            <span class="progress-heart" id="heart1">💗</span>
+            <span class="progress-heart" id="heart2">💗</span>
+            <span class="progress-heart" id="heart3">💗</span>
+            <span class="progress-heart" id="heart4">💗</span>
+            <span class="progress-heart" id="heart5">💗</span>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-container" id="gameArea">
+            <span class="tap-hint">Tap the hearts! ✨</span>
+
+            <!-- Win Overlay -->
+            <div class="win-overlay" id="winOverlay">
+                <span class="win-emoji">🎉</span>
+                <p class="win-text">You caught all my love!</p>
+                <button class="btn btn--primary" id="continueBtn">Continue 💕</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Game Configuration
+        const config = {
+            heartsToWin: 15,        // Hearts needed to win
+            spawnInterval: 1000,     // Time between spawns (ms) - calmer pace
+            fallDuration: 5000,     // How long hearts take to fall (ms) - slower, gentler
+            heartEmojis: ['💕', '💖', '💗', '💓', '💞', '💝', '🩷', '❤️']
+        };
+
+        // Game State
+        let caughtCount = 0;
+        let gameActive = true;
+        let spawnTimer = null;
+
+        // DOM Elements
+        const gameArea = document.getElementById('gameArea');
+        const winOverlay = document.getElementById('winOverlay');
+        const continueBtn = document.getElementById('continueBtn');
+        const progressHearts = [
+            document.getElementById('heart1'),
+            document.getElementById('heart2'),
+            document.getElementById('heart3'),
+            document.getElementById('heart4'),
+            document.getElementById('heart5')
+        ];
+
+        // Spawn a falling heart
+        function spawnHeart() {
+            if (!gameActive) return;
+
+            const heart = document.createElement('span');
+            heart.className = 'falling-heart';
+            heart.textContent = config.heartEmojis[Math.floor(Math.random() * config.heartEmojis.length)];
+
+            // Random horizontal position
+            const maxX = gameArea.clientWidth - 40;
+            const randomX = Math.random() * maxX;
+            heart.style.left = `${randomX}px`;
+            heart.style.top = '-40px';
+            heart.style.animationDuration = `${config.fallDuration}ms`;
+
+            // Click/tap handler
+            heart.addEventListener('click', (e) => catchHeart(heart, e));
+            heart.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                catchHeart(heart, e);
+            }, { passive: false });
+
+            gameArea.appendChild(heart);
+
+            // Remove after animation
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, config.fallDuration);
+        }
+
+        // Handle catching a heart
+        function catchHeart(heart, event) {
+            if (!gameActive || heart.classList.contains('caught')) return;
+
+            heart.classList.add('caught');
+            caughtCount++;
+
+            // Show score pop
+            showScorePop(event);
+
+            // Update progress
+            updateProgress();
+
+            // Remove after animation
+            setTimeout(() => heart.remove(), 400);
+
+            // Check win condition
+            if (caughtCount >= config.heartsToWin) {
+                winGame();
+            }
+        }
+
+        // Show +1 pop animation
+        function showScorePop(event) {
+            const pop = document.createElement('span');
+            pop.className = 'score-pop';
+            pop.textContent = '+1 💕';
+
+            // Position near the click
+            const rect = gameArea.getBoundingClientRect();
+            const x = (event.clientX || event.touches?.[0]?.clientX || 0) - rect.left;
+            const y = (event.clientY || event.touches?.[0]?.clientY || 0) - rect.top;
+
+            pop.style.left = `${x}px`;
+            pop.style.top = `${y}px`;
+
+            gameArea.appendChild(pop);
+            setTimeout(() => pop.remove(), 800);
+        }
+
+        // Update progress hearts
+        function updateProgress() {
+            const heartsPerStep = config.heartsToWin / 5;
+            const filledCount = Math.min(5, Math.floor(caughtCount / heartsPerStep));
+
+            progressHearts.forEach((heart, index) => {
+                if (index < filledCount) {
+                    heart.classList.add('filled');
+                }
+            });
+        }
+
+        // Win the game
+        function winGame() {
+            gameActive = false;
+            clearInterval(spawnTimer);
+
+            // Fill all hearts
+            progressHearts.forEach(h => h.classList.add('filled'));
+
+            // Show win overlay
+            setTimeout(() => {
+                winOverlay.classList.add('active');
+            }, 500);
+        }
+
+        // Continue to proposal
+        continueBtn.addEventListener('click', () => {
+            valentineUtils.navigateTo('proposal.html');
+        });
+
+        // Start the game
+        function startGame() {
+            // Spawn hearts at interval
+            spawnTimer = setInterval(spawnHeart, config.spawnInterval);
+
+            // Initial spawn
+            spawnHeart();
+        }
+
+        // Initialize
+        setTimeout(startGame, 500);
+    </script>
+</body>
+
+</html>

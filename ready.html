@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Are you ready for something special?">
+    <title>Are You Ready? 💫</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Page-specific styles */
+        .ready-emoji {
+            font-size: 5rem;
+            display: block;
+            margin-bottom: var(--space-xl);
+            animation: float-gentle 3s ease-in-out infinite;
+        }
+
+        .ready-title {
+            font-size: var(--font-size-2xl);
+            font-family: var(--font-romantic);
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .ready-subtitle {
+            font-size: var(--font-size-base);
+            opacity: 0.85;
+            margin-bottom: var(--space-3xl);
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .ready-btn {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards, breathing 3s ease-in-out infinite 1.5s;
+            animation-delay: 0.7s;
+        }
+
+        @keyframes float-gentle {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        /* Emphasis dots */
+        .emphasis-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: dot-pulse 1.5s ease-in-out infinite;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dot-pulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+
+        /* Glowing border effect */
+        .glow-ring {
+            position: absolute;
+            inset: -50px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 133, 162, 0.1) 0%, transparent 70%);
+            animation: ring-pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes ring-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-bg" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <div class="content-wrapper" style="position: relative;">
+            <!-- Glow effect -->
+            <div class="glow-ring" aria-hidden="true"></div>
+
+            <span class="ready-emoji" aria-hidden="true">🦋</span>
+
+            <h1 class="ready-title text-glow">
+                Are you ready?
+            </h1>
+
+            <p class="ready-subtitle">
+                Take a deep breath...<br>
+                Something beautiful is about to happen ✨
+            </p>
+
+            <div class="emphasis-dots" aria-hidden="true">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+            <a href="game.html" class="btn btn--primary shimmer ready-btn" id="readyBtn">
+                <span>I'm Ready</span>
+                <span aria-hidden="true">💕</span>
+            </a>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('readyBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            valentineUtils.navigateTo('game.html');
+        });
+    </script>
+</body>
+
+</html>
